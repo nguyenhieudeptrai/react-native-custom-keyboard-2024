@@ -66,6 +66,8 @@ class CustomKeyboardContainer extends Component<{
   }
 }
 
+AppRegistry.registerComponent("CustomKeyboard", () => CustomKeyboardContainer);
+
 export class CustomTextInput extends Component<CustomKeyboardProps, {}> {
   inputRef = React.createRef<TextInput>();
   timeoutId: NodeJS.Timeout | null = null;
