@@ -12,11 +12,20 @@
     "url": "git+https://github.com/nguyenhieudeptrai/react-native-custom-keyboard-2024.git"
   },
   "keywords": [
-    "react-native"
+    "react-native",
+    "ios",
+    "android",
+    "react-component"
   ],
   "author": "",
   "license": "",
   "peerDependencies": {
     "react-native": "^0.74.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.2"
+  },
+  "resolutions": {
+    "@types/react": "17.0.39"
   }
 }
