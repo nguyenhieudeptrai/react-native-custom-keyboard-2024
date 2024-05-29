@@ -6,11 +6,27 @@ import {
   TextInput,
   findNodeHandle,
   AppRegistry,
+  TextInputProps
 } from 'react-native';
 
-import { CustomNativeModule } from './type';
+export type CustomNativeModule = {
+  install: (tag: any, type: any) => void,
+  uninstall: (tag: any) => void,
+  insertText: (tag: any, text: string | number) => void,
+  backSpace: (tag: any) => void,
+  doDelete: (tag: any) => void,
+  moveLeft: (tag: any) => void,
+  moveRight: (tag: any) => void,
+  switchSystemKeyboard: (tag: any) => void,
+}
 
-const { CustomKeyboard, CustomKeyboardProps }: CustomNativeModule = NativeModules;
+export type CustomKeyboardProps = TextInputProps & {
+  customKeyboardType?: boolean
+}
+
+const { CustomKeyboard } = NativeModules as {
+  CustomKeyboard: CustomNativeModule
+};
 
 const {
   install, uninstall,
@@ -46,13 +62,14 @@ class CustomKeyboardContainer extends Component<{
       return null;
     }
     const Comp = factory();
-    return <Comp tag={ tag } />;
+    return <Comp tag={tag} />;
   }
 }
 
 AppRegistry.registerComponent("CustomKeyboard", () => CustomKeyboardContainer);
 
 export class CustomTextInput extends Component<CustomKeyboardProps, {}> {
+  input: any = null;
   componentDidMount() {
     install(findNodeHandle(this.input), this.props.customKeyboardType);
   }
@@ -67,6 +84,6 @@ export class CustomTextInput extends Component<CustomKeyboardProps, {}> {
 
   render() {
     const { customKeyboardType, ...others } = this.props;
-    return <TextInput { ...others } ref = { this.onRef } />;
+    return <TextInput {...others} ref={this.onRef} />;
   }
 }
