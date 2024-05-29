@@ -80,10 +80,7 @@ export class CustomTextInput extends Component<CustomKeyboardProps, {}> {
   }
 
   installCustomKeyboard(textInput: TextInput | null, customKeyboardType: string = "") {
-    console.log("ee")
-    this.timeoutId = setTimeout(() => {
-      install(findNodeHandle(textInput), customKeyboardType);
-    }, 200);
+    install(findNodeHandle(textInput), customKeyboardType);
   }
 
   render() {
