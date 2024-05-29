@@ -67,7 +67,7 @@ class CustomKeyboardContainer extends Component<{
 }
 
 export class CustomTextInput extends Component<CustomKeyboardProps, {}> {
-  inputRef = React.useRef<TextInput>(null);
+  inputRef = React.createRef<TextInput>();
   timeoutId: NodeJS.Timeout | null = null;
   componentDidMount() {
     this.installCustomKeyboard(this.inputRef.current, this.props.customKeyboardType);
@@ -80,7 +80,9 @@ export class CustomTextInput extends Component<CustomKeyboardProps, {}> {
   }
 
   installCustomKeyboard(textInput: TextInput | null, customKeyboardType: string = "") {
-    install(findNodeHandle(textInput), customKeyboardType);
+    this.timeoutId = setTimeout(() => {
+      install(findNodeHandle(textInput), customKeyboardType);
+    }, 200);
   }
 
   render() {
