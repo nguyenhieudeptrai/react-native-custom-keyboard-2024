@@ -71,17 +71,19 @@ AppRegistry.registerComponent("CustomKeyboard", () => CustomKeyboardContainer);
 export class CustomTextInput extends Component<CustomKeyboardProps, {}> {
   inputRef = null;
   componentDidMount() {
+    console.log("componentDidMount");
     this.installCustomKeyboard(this.inputRef, this.props.customKeyboardType);
   }
 
   componentDidUpdate(prevProps: CustomKeyboardProps) {
+    console.log("componentDidUpdate");
     if (prevProps.customKeyboardType !== this.props.customKeyboardType) {
       this.installCustomKeyboard(this.inputRef, this.props.customKeyboardType);
     }
   }
 
-  installCustomKeyboard(textInput: any, customKeyboardType?: string) {
-    if (textInput && customKeyboardType) {
+  installCustomKeyboard(textInput: any, customKeyboardType: string) {
+    if (textInput) {
       install(findNodeHandle(textInput), customKeyboardType);
     } else {
       console.warn('CustomTextInput: Missing input element or customKeyboardType prop');

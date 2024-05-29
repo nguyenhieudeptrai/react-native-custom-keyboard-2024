@@ -53,8 +53,14 @@ public class RNCustomKeyboardModule extends ReactContextBaseJavaModule {
             @Override
             public void run() {
                 final Activity activity = getCurrentActivity();
-                final ReactEditText edit = getEditById(tag);
-                if (edit == null) {
+            
+                final ReactEditText edit;
+                try{
+                    edit= getEditById(tag);
+                    if (edit == null) {
+                        return;
+                    }
+                } catch (Exception e){
                     return;
                 }
 
