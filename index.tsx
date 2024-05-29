@@ -86,10 +86,7 @@ export class CustomTextInput extends Component<CustomKeyboardProps, {}> {
       install(findNodeHandle(textInput), customKeyboardType);
     }, 100);
   }
-  componentWillUnmount() {
-    uninstall(this.inputRef.current)
-  }
-
+  
   render() {
     const { customKeyboardType, ...others } = this.props;
     return <TextInput {...others} ref={this.inputRef} />;
