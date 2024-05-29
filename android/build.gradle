@@ -10,12 +10,17 @@ android {
     buildToolsVersion safeExtGet('buildToolsVersion', "25.0.3")
 
     defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 18)
-        targetSdkVersion safeExtGet('targetSdkVersion', 25)
+        minSdkVersion safeExtGet('minSdkVersion', 21)
+        targetSdkVersion safeExtGet('targetSdkVersion', 29)
     }
     lintOptions {
        warning 'InvalidPackage'
     }
+}
+
+repositories {
+    google()
+    mavenCentral()
 }
 
 dependencies {
