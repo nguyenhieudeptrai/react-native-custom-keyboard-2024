@@ -69,7 +69,7 @@ class CustomKeyboardContainer extends Component<{
 AppRegistry.registerComponent("CustomKeyboard", () => CustomKeyboardContainer);
 
 export class CustomTextInput extends Component<CustomKeyboardProps, {}> {
-  inputRef: any = null;
+  inputRef = React.createRef<TextInput>();
   componentDidMount() {
     this.installCustomKeyboard(this.inputRef.current, this.props.customKeyboardType);
   }
