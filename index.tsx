@@ -66,32 +66,32 @@ class CustomKeyboardContainer extends Component<{
   }
 }
 
-AppRegistry.registerComponent("CustomKeyboard", () => CustomKeyboardContainer);
-
 export class CustomTextInput extends Component<CustomKeyboardProps, {}> {
-  inputRef = null;
+  inputRef = React.useRef<TextInput>(null);
+  timeoutId: NodeJS.Timeout | null = null;
   componentDidMount() {
-    console.log("componentDidMount");
-    this.installCustomKeyboard(this.inputRef, this.props.customKeyboardType);
+    this.installCustomKeyboard(this.inputRef.current, this.props.customKeyboardType);
   }
 
   componentDidUpdate(prevProps: CustomKeyboardProps) {
-    console.log("componentDidUpdate");
     if (prevProps.customKeyboardType !== this.props.customKeyboardType) {
-      this.installCustomKeyboard(this.inputRef, this.props.customKeyboardType);
+      this.installCustomKeyboard(this.inputRef.current, this.props.customKeyboardType);
     }
   }
 
-  installCustomKeyboard(textInput: any, customKeyboardType: string) {
-    if (textInput) {
+  componentWillUnmount() {
+    clearTimeout(this.timeoutId ?? 0);
+    uninstall(this.inputRef.current);
+  }
+
+  installCustomKeyboard(textInput: TextInput | null, customKeyboardType: string = "") {
+    this.timeoutId = setTimeout(() => {
       install(findNodeHandle(textInput), customKeyboardType);
-    } else {
-      console.warn('CustomTextInput: Missing input element or customKeyboardType prop');
-    }
+    }, 200);
   }
 
   render() {
     const { customKeyboardType, ...others } = this.props;
-    return <TextInput {...others} ref={(r: any) => { this.inputRef = r; }} />;
+    return <TextInput {...others} ref={this.inputRef} />;
   }
 }
