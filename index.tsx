@@ -79,12 +79,8 @@ export class CustomTextInput extends Component<CustomKeyboardProps, {}> {
     }
   }
 
-  componentWillUnmount() {
-    clearTimeout(this.timeoutId ?? 0);
-    uninstall(this.inputRef.current);
-  }
-
   installCustomKeyboard(textInput: TextInput | null, customKeyboardType: string = "") {
+    console.log("ee")
     this.timeoutId = setTimeout(() => {
       install(findNodeHandle(textInput), customKeyboardType);
     }, 200);
