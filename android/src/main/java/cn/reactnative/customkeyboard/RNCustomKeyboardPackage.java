@@ -17,7 +17,7 @@ public class RNCustomKeyboardPackage implements ReactPackage {
       return Arrays.<NativeModule>asList(new RNCustomKeyboardModule(reactContext));
     }
 
-    @Override
+    // Deprecated from RN 0.47
     public List<Class<? extends JavaScriptModule>> createJSModules() {
       return Collections.emptyList();
     }
