@@ -64,20 +64,26 @@ public class RNCustomKeyboardModule extends ReactContextBaseJavaModule {
                     return;
                 }
 
-                edit.setTag(TAG_ID, createCustomKeyboard(activity, tag, type));
+                dit.setTag(TAG_ID, createCustomKeyboard(activity, tag, type));
+
+                var focusEvent = edit.getOnFocusChangeListener();
 
                 edit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
                     @Override
                     public void onFocusChange(final View v, boolean hasFocus) {
+                        focusEvent.onFocusChange(v, hasFocus);
                         if (hasFocus) {
                             View keyboard = (View)edit.getTag(TAG_ID);
                             if (keyboard.getParent() == null) {
                                 activity.addContentView(keyboard, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                             }
+
                             UiThreadUtil.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     ((InputMethodManager) getReactApplicationContext().getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
+
                                 }
                             });
                         } else {
@@ -88,7 +94,7 @@ public class RNCustomKeyboardModule extends ReactContextBaseJavaModule {
                         }
                     }
                 });
-
+ 
                 edit.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(final View v) {
