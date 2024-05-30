@@ -64,7 +64,7 @@ public class RNCustomKeyboardModule extends ReactContextBaseJavaModule {
                     return;
                 }
 
-                dit.setTag(TAG_ID, createCustomKeyboard(activity, tag, type));
+                edit.setTag(TAG_ID, createCustomKeyboard(activity, tag, type));
 
                 var focusEvent = edit.getOnFocusChangeListener();
 
